@@ -1,0 +1,14 @@
+W oddzielnych terminalach, pokolei:
+
+roscore								#odpalenie roscora
+rosrun velma_common reset_shm_comm				#usuniecie wspolnych kanalow komunikacyjnych
+roslaunch projekt2 velma_system_stero.launch			#odpalenie robota velmy razem z zapisanym swiatem
+rosrun rviz rviz -d $(rospack find projekt2)/data/velma.rviz	#odpalenie rviza razem z odpowiednia konfiguracja
+roslaunch rcprg_gazebo_utils gazebo_client.launch		#odpalenie gazebo
+rosrun velma_task_cs_ros_interface initialize_robot.py		#inicjalizacja robota
+
+roslaunch projekt2 gazebo_tf_publish.launch 			#uruchomienie publikacji pozycji szafki i klamki 
+rosrun projekt2 open_cabinet.py					#program, ktory docelowo otwieral szafke, na razie przesuwa reke do klamki
+
+rosrun projekt2 publish_positions.py				#program, ktorego uzywalem do sprawdzenia czy dobrze wyliczylem pozycje - nie trzeba go uruchamiac
+								#zeby zadzialal open_cabinet.py

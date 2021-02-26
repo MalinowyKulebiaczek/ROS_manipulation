@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<launch>
+
+  <include file="$(find rcprg_gazebo_utils)/launch/gazebo_publish_ros_tf_object.launch">
+    <!-- Note: the world_name is with respect to GAZEBO_RESOURCE_PATH environmental variable -->
+    <arg name="frame_id" value="szafka" />
+    <arg name="link_name" value="cabinet_door_fragile::cabinet" />
+  </include>
+
+  <include file="$(find rcprg_gazebo_utils)/launch/gazebo_publish_ros_tf_object.launch">
+    <!-- Note: the world_name is with respect to GAZEBO_RESOURCE_PATH environmental variable -->
+    <arg name="frame_id" value="klamka" />
+    <arg name="link_name" value="cabinet_door_fragile::right_handle" />
+  </include>
+
+  <include file="$(find rcprg_gazebo_utils)/launch/gazebo_publish_ros_tf_object.launch">
+    <!-- Note: the world_name is with respect to GAZEBO_RESOURCE_PATH environmental variable -->
+    <arg name="frame_id" value="zawias" />
+    <arg name="link_name" value="cabinet_door_fragile::right_door" />
+  </include>
+
+</launch>

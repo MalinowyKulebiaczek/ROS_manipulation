@@ -1,0 +1,26 @@
+W oddzielnych terminalach, pokolei:
+
+roscore								#odpalenie roscora
+rosrun velma_common reset_shm_comm				#usuniecie wspolnych kanalow komunikacyjnych
+roslaunch projekt1 velma_system_stero.launch			#odpalenie robota velmy razem z zapisanym swiatem
+rosrun rviz rviz -d $(rospack find projekt1)/data/velma.rviz	#odpalenie rviza razem z odpowiednia konfiguracja
+roslaunch rcprg_gazebo_utils gazebo_client.launch		#odpalenie gazebo
+rosrun velma_task_cs_ros_interface initialize_robot.py		#inicjalizacja robota
+
+roslaunch velma_ros_plugin velma_planner.launch			#uruchomienie planera
+								#z moich doswiadczen trzeba to zrobic przed wczytaniem oktomapy
+
+roslaunch velma_common octomap_offline_server.launch octomap_file:="$(rospack find projekt1)/data/octomap_proj1.ot"
+								#wlaczenie zapisanej oktomapy w trybie offline
+roslaunch velma_common octomap_server.launch			#wlaczenie oktomapy online - wg opisu projektu tego raczej nie bedziemy uzywac
+rosrun projekt1 explore_environment.py				#uruchomienie skryptu eksplorujacego srodowisko
+
+roslaunch rcprg_gazebo_utils gazebo_publish_ros_tf_object.launch link_name:=jar::link frame_id:="sloik"
+roslaunch rcprg_gazebo_utils gazebo_publish_ros_tf_object.launch link_name:=cafe_table_0::link frame_id:="stol1"
+roslaunch rcprg_gazebo_utils gazebo_publish_ros_tf_object.launch link_name:=cafe_table::link frame_id:="stol2"
+								#opublikowanie pozycji sloika do rviza
+
+rosrun projekt1 publish_positions.py					#uruchomienie programu do opublikowania pozycji 'pregrasp_1 i pregrasp_2'
+								#oraz predrop_1 i aferdrop_1 
+
+rosrun projekt1 move_jar.py				#podniesienie i odlozenie sloika
